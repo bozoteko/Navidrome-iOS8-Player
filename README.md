@@ -5,5 +5,4 @@ So i recently started using navidrome to stream music locally, i like to use a d
 
 Contributer's 
 
-<sub>Contributer's</sub>
-
+<sup>Claude - Fixes all my dumbass bugs 😎</sup>
