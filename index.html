@@ -6,87 +6,118 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
   <link rel="apple-touch-icon" href="icon.png">
-<link rel="apple-touch-icon-precomposed" href="icon.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Music">
+  <link rel="apple-touch-icon-precomposed" href="icon.png">
+
+  <meta name="apple-mobile-web-app-title" content="Music">
   <title>Music Player</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div id="login">
-  <div id="login-inner">
-    <h1>&#9835; Music</h1>
-    <input type="text"     id="server"   placeholder="Server URL  e.g. http://192.168.1.1:4533" autocapitalize="none" autocorrect="off" autocomplete="off" spellcheck="false">
-    <input type="text"     id="username" placeholder="Username" autocapitalize="none" autocorrect="off" autocomplete="off">
-    <input type="password" id="password" placeholder="Password" autocomplete="off">
-    <div id="error-msg"></div>
-    <button id="connect-btn" onclick="doLogin()">Connect</button>
-    <button id="clear-btn"   onclick="doLogout()">Clear saved login</button>
-  </div>
-</div>
+  <div id="login">
+    <div id="login-inner">
+      <h1>♫ Music</h1>
 
-<div id="app">
-  <div id="nav">
-    <button id="tab-playlists" onclick="showTab('playlists')">Playlists</button>
-    <button id="tab-artists"   onclick="showTab('artists')">Artists</button>
-    <button id="tab-albums"    onclick="showTab('albums')">Albums</button>
-    <button id="nav-settings"  onclick="openSettings()">&#9881;</button>
-  </div>
-  <div id="content"></div>
-</div>
+      <input type="text" id="server" placeholder="Server URL e.g. http://192.168.1.1:4533" autocapitalize="none" autocorrect="off">
+      <input type="text" id="username" placeholder="Username" autocapitalize="none" autocorrect="off">
+      <input type="password" id="password" placeholder="Password">
 
-<div id="player">
-  <div id="player-info">
-    <div id="player-art-wrap"><div id="player-art">&#9835;</div></div>
-    <div id="player-meta">
-      <div id="player-title">Nothing playing</div>
-      <div id="player-artist"></div>
+      <div id="error-msg"></div>
+
+      <button id="connect-btn" onclick="doLogin()">Connect</button>
+      <button id="clear-btn" onclick="doLogout()">Clear saved login</button>
     </div>
   </div>
-  <div id="player-controls">
-    <button onclick="prevSong()">&#9664;&#9664;</button>
-    <button id="play-btn" onclick="togglePlay()">&#9654;</button>
-    <button onclick="nextSong()">&#9654;&#9654;</button>
-  </div>
-  <div id="progress-wrap" onclick="seekTo(event)">
-    <div id="progress-bar"></div>
-  </div>
-  <div id="player-times">
-    <span id="time-cur">0:00</span>
-    <span id="time-dur">0:00</span>
-  </div>
-</div>
 
-<div id="settings-overlay" onclick="closeSettingsOutside(event)">
-  <div id="settings-box">
-    <div id="settings-header">
-      <h2>Settings</h2>
-      <button onclick="closeSettings()">&#10005;</button>
+  <div id="app">
+
+    <div id="nav">
+      <button id="tab-playlists" onclick="showTab('playlists')">Playlists</button>
+      <button id="tab-artists" onclick="showTab('artists')">Artists</button>
+      <button id="tab-albums" onclick="showTab('albums')">Albums</button>
+      <button id="nav-settings" onclick="openSettings()">⚙</button>
     </div>
 
-    <div class="setting-row">
-      <div class="setting-label">Accent colour<small>Active tab, progress, buttons</small></div>
-      <input type="color" class="cpick" id="set-accent" value="#1db954" oninput="applyAccent(this.value)">
-    </div>
-    <div class="setting-row">
-      <div class="setting-label">Background<small>Main background</small></div>
-      <input type="color" class="cpick" id="set-bg" value="#1a1a1a" oninput="applyBg(this.value)">
-    </div>
-    <div class="setting-row">
-      <div class="setting-label">Surface<small>Nav bar &amp; player</small></div>
-      <input type="color" class="cpick" id="set-bg2" value="#222222" oninput="applyBg2(this.value)">
+    <div id="content"></div>
+  </div>
+
+  <div id="player">
+
+    <div id="player-info">
+      <div id="player-art-wrap">
+        <div id="player-art">♫</div>
+      </div>
+
+      <div id="player-meta">
+        <div id="player-title">Nothing playing</div>
+        <div id="player-artist"></div>
+      </div>
     </div>
 
-    <div id="settings-footer">
-      <button onclick="doLogout()">Logout</button>
-      <button id="settings-done" onclick="closeSettings()">Done</button>
+    <div id="player-controls">
+<button onclick="prevSong()">&#9664;&#9664;</button>
+<button onclick="toggleShuffle()" id="shuffle-btn">🔀</button>
+<button id="play-btn" onclick="togglePlay()">▶</button>
+<button onclick="nextSong()">&#9654;&#9654;</button>
+    </div>
+    
+    <div id="progress-wrap" onclick="seekTo(event)">
+      <div id="progress-bar"></div>
+    </div>
+
+    <div id="player-times">
+      <span id="time-cur">0:00</span>
+      <span id="time-dur">0:00</span>
+    </div>
+
+  </div>
+
+  <div id="settings-overlay" onclick="closeSettingsOutside(event)">
+    <div id="settings-box">
+
+      <div id="settings-header">
+        <h2>Settings</h2>
+        <button onclick="closeSettings()">✕</button>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-label">
+          Accent colour
+          <small>Active tab, progress, buttons</small>
+        </div>
+        <input type="color" class="cpick" id="set-accent" oninput="applyAccent(this.value)">
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-label">
+          Background
+          <small>Main background</small>
+        </div>
+        <input type="color" class="cpick" id="set-bg" oninput="applyBg(this.value)">
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-label">
+          Surface
+          <small>Nav bar & player</small>
+        </div>
+        <input type="color" class="cpick" id="set-bg2" oninput="applyBg2(this.value)">
+      </div>
+
+      <div id="settings-footer">
+        <button onclick="doLogout()">Logout</button>
+        <button id="settings-done" onclick="closeSettings()">Done</button>
+      </div>
+
     </div>
   </div>
-</div>
 
-<audio id="audio"></audio>
-<script src="app.js"></script>
+  <audio id="audio" playsinline webkit-playsinline preload="auto"></audio>
+
+  <script src="app.js"></script>
 </body>
 </html>
