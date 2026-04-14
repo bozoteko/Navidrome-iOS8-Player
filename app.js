@@ -2,6 +2,8 @@ var cfg      = {};
 var queue    = [];
 var queueIdx = 0;
 var audio    = document.getElementById('audio');
+var shuffle = false;
+var originalQueue = [];
 
 function authParams() {
   return 'u=' + encodeURIComponent(cfg.username) +
@@ -210,6 +212,29 @@ function backBtn(label, fn) {
 }
 function goBack() { if (window._backFn) window._backFn(); }
 
+function toggleShuffle() {
+  shuffle = !shuffle;
+
+  var btn = document.getElementById('shuffle-btn');
+  btn.style.color = shuffle ? themeAccent : '#ffffff';
+
+  if (shuffle) {
+    originalQueue = queue.slice();
+
+    for (var i = queue.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = queue[i];
+      queue[i] = queue[j];
+      queue[j] = temp;
+    }
+
+    queueIdx = 0;
+  } else {
+    queue = originalQueue.slice();
+    queueIdx = 0;
+  }
+}
+
 function loadPlaylists() {
   setLoading();
   get(apiUrl('getPlaylists'), function(data) {
@@ -394,7 +419,13 @@ function togglePlay() {
 }
 
 function nextSong() {
-  if (queueIdx < queue.length - 1) { queueIdx++; playCurrent(); }
+  if (queueIdx < queue.length - 1) {
+    queueIdx++;
+    playCurrent();
+  } else if (shuffle) {
+    toggleShuffle();
+    toggleShuffle();
+  }
 }
 function prevSong() {
   if (audio.currentTime > 3) { audio.currentTime = 0; }
